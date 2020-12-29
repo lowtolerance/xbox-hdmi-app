@@ -24,13 +24,6 @@ SelfTest::~SelfTest(void) {
   }
 }
 
-void SelfTest::event(SDL_Event event) {
-  switch (event.type) {
-    default:
-      break;
-  }
-}
-
 void SelfTest::render(SDL_Renderer *renderer) {
   if (background_texture) {
     SDL_DestroyTexture(background_texture);

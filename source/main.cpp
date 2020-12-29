@@ -24,23 +24,14 @@
 #include "SelfTest.h"
 #include "Advanced.h"
 #include "FirmwareUpdate.h"
-#include "Credits.h"
 
 #define MENU 0
 #define SELFTEST 1
 #define ADVANCED 2
 #define FIRMWARE_UPDATE 3
-#define CREDITS 4
 
-static void printSDLErrorAndReboot(void) {
-  debugPrint("SDL_Error: %s\n", SDL_GetError());
-  debugPrint("Rebooting in 5 seconds.\n");
-  Sleep(5000);
-  XReboot();
-}
-
-static void printIMGErrorAndReboot(void) {
-  debugPrint("SDL_Image Error: %s\n", IMG_GetError());
+void criticalErrorAlert(char *msg, char *error) {
+  debugPrint("%u: %u\n", msg, error);
   debugPrint("Rebooting in 5 seconds.\n");
   Sleep(5000);
   XReboot();
@@ -85,14 +76,14 @@ int main(void) {
   if (SDL_NumJoysticks() < 1) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                  "Couldn't find any joysticks.\n");
-    printSDLErrorAndReboot();
+    criticalErrorAlert("SDL_Error ", SDL_GetError);
   } else {
     SDL_GameController *controller = NULL;
     for (int i = 0; i < SDL_NumJoysticks(); ++i) {
       if (SDL_IsGameController(i)) {
         controller = SDL_GameControllerOpen(i);
         if (controller == nullptr) {
-          printSDLErrorAndReboot();
+        criticalErrorAlert("SDL_Error", SDL_GetError);
         }
       }
     }
@@ -117,7 +108,7 @@ int main(void) {
     SDL_LogError(SDL_LOG_CATEGORY_APPLICATION,
                  "Couldn't intialize SDL_image.\n");
     SDL_VideoQuit();
-    printIMGErrorAndReboot();
+    criticalErrorAlert("SDL_Image Error", IMG_GetError);
   }
 
   gRenderer = SDL_CreateRenderer(window, -1, 0);
@@ -164,10 +155,7 @@ int main(void) {
           break;
         case FIRMWARE_UPDATE:
           currentScene = new FirmwareUpdate();
-          break;
-        case CREDITS  :
-          currentScene = new Credits();
-          break;
+          break;  
         default:
           load_scene = 0;
           break;
@@ -177,10 +165,8 @@ int main(void) {
     // Check for events
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-        case SDL_QUIT:
+      if (event.type == SDL_QUIT) {
           running = false;
-          break;
       }
 
       currentScene->event(event);

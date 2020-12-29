@@ -13,9 +13,6 @@ class Scene {
   virtual ~Scene(){};
   virtual void event(SDL_Event event){};
   virtual void render(SDL_Renderer *renderer){};
-
- protected:
- private:
 };
 
 #endif

@@ -59,6 +59,7 @@ void FirmwareUpdate::render(SDL_Renderer *renderer) {
         console->print("No XboxHDMI hardware found.");
         update_stage = UpdateState::End;
       } else {
+        console->print("Found installed XboxHDMI.");
         console->print("Firmware Mode: 0x%02X", current_boot);
         update_stage = UpdateState::GetFirmwareInfo;
       }

@@ -20,8 +20,6 @@ class Menu : public Scene {
   bool findKernelPatchVersion(uint8_t *version);
 
   uint8_t current_item = 0;
-  uint8_t secret_counter = 0;
-  bool secret_found = false;
 
   SDL_Texture *background_texture;
   SDL_Texture *arrow_texture;
@@ -35,9 +33,8 @@ class Menu : public Scene {
 
   const SDL_Rect arrow_pos[4] = {
       {406, 190 + (40 * 0), 24, 16},  // Self Test
-      {406, 190 + (40 * 1), 24, 16},  // Advance
-      {406, 190 + (40 * 2), 24, 16},  // Firemware Update
-      {532, 406, 24, 16}              // Secret Menu
+      {406, 190 + (40 * 1), 24, 16},  // Advanced
+      {406, 190 + (40 * 2), 24, 16},  // Firmware Update
   };
 
   uint8_t firmware_version[3] = { 0 };

@@ -38,11 +38,6 @@ Menu::Menu() {
     HalReadSMBusValue(I2C_HDMI_ADRESS, I2C_FIRMWARE_VERSION + 2, false, &smbus_read);
     firmware_version[2] = (uint8_t)smbus_read;
 
-    // Firmware 1.0.0 will incorrectly report 0.0.0, so let's fix that.
-    if(firmware_version[0] == 0 && firmware_version[1] == 0 && firmware_version[2] == 0) {
-      firmware_version[0] = 1;
-    }
-
     snprintf(text_buffer, sizeof(text_buffer), "Firmware Version: %u.%u.%u",
       firmware_version[0], firmware_version[1], firmware_version[2]);
   }
@@ -85,20 +80,10 @@ void Menu::event(SDL_Event event) {
       running = false;
       break;
     case SDL_CONTROLLER_BUTTON_DPAD_UP:
-      current_item = MAX(current_item - 1, 0);
-      secret_counter = 0;
+      current_item = (current_item - 1) % 3;
       break;
     case SDL_CONTROLLER_BUTTON_DPAD_DOWN:
-      if (secret_found) {
-        current_item = MIN(current_item + 1, 3);
-      } else {
-        current_item = MIN(current_item + 1, 2);
-        secret_counter++;
-
-        if (secret_counter > 20) {
-          secret_found = true;
-        }
-      }
+      current_item = (current_item + 1) % 3;
       break;
     default:
       break;

@@ -23,3 +23,4 @@ class SelfTest : public Scene {
 };
 
 #endif
+  
