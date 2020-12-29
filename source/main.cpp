@@ -26,6 +26,12 @@
 #include "FirmwareUpdate.h"
 #include "Credits.h"
 
+#define MENU 0
+#define SELFTEST 1
+#define ADVANCED 2
+#define FIRMWARE_UPDATE 3
+#define CREDITS 4
+
 static void printSDLErrorAndReboot(void) {
   debugPrint("SDL_Error: %s\n", SDL_GetError());
   debugPrint("Rebooting in 5 seconds.\n");
@@ -147,19 +153,19 @@ int main(void) {
       delete currentScene;
       current_scene = load_scene;
       switch (load_scene) {
-        case 0:
+        case MENU:
           currentScene = new Menu();
           break;
-        case 1:
+        case SELFTEST:
           currentScene = new SelfTest();
           break;
-        case 2:
+        case ADVANCED:
           currentScene = new Advanced();
           break;
-        case 3:
+        case FIRMWARE_UPDATE:
           currentScene = new FirmwareUpdate();
           break;
-        case 4:
+        case CREDITS  :
           currentScene = new Credits();
           break;
         default:
