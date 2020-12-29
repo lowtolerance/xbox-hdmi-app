@@ -1,5 +1,5 @@
-#ifndef SCENE2_H_
-#define SCENE2_H_
+// #ifndef SCENE2_H_
+// #define SCENE2_H_
 
 #if _XBOX
 #include <SDL.h>
@@ -9,10 +9,10 @@
 
 #include "scene.h"
 
-class Scene2 : public Scene {
+class Advanced : public Scene {
  public:
-  Scene2();
-  virtual ~Scene2();
+  Advanced();
+  virtual ~Advanced();
   void event(SDL_Event event);
   void render(SDL_Renderer *renderer);
 

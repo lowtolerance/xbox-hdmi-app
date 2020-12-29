@@ -9,10 +9,10 @@
 
 #include "scene.h"
 
-class Scene0 : public Scene {
+class Menu : public Scene {
  public:
-  Scene0();
-  virtual ~Scene0();
+  Menu();
+  virtual ~Menu();
   void event(SDL_Event event);
   void render(SDL_Renderer *renderer);
 

@@ -1,4 +1,4 @@
-#include "scene4.h"
+#include "Credits.h"
 
 #include <SDL.h>
 
@@ -8,14 +8,14 @@ extern SDL_Renderer *gRenderer;
 
 extern uint8_t load_scene;
 
-Scene4::Scene4() {
+Credits::Credits() {
   background_texture =
-      loadTexture(gRenderer, "D:\\assets\\images\\screen4_background.png");
+      loadTexture(gRenderer, "D:\\assets\\images\\credits_background.png");
 }
 
-Scene4::~Scene4(void) { SDL_DestroyTexture(background_texture); }
+Credits::~Credits(void) { SDL_DestroyTexture(background_texture); }
 
-void Scene4::event(SDL_Event event) {
+void Credits::event(SDL_Event event) {
   switch (event.type) {
     case SDL_JOYBUTTONDOWN:
       // B Button - Go back to main menu
@@ -26,6 +26,6 @@ void Scene4::event(SDL_Event event) {
   }
 }
 
-void Scene4::render(SDL_Renderer *renderer) {
+void Credits::render(SDL_Renderer *renderer) {
   SDL_RenderCopy(gRenderer, background_texture, NULL, NULL);
 }

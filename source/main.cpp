@@ -20,11 +20,11 @@
 
 #include "common.h"
 #include "scene.h"
-#include "scene0.h"
-#include "scene1.h"
-#include "scene2.h"
-#include "scene3.h"
-#include "scene4.h"
+#include "Menu.h"
+#include "SelfTest.h"
+#include "Advanced.h"
+#include "FirmwareUpdate.h"
+#include "Credits.h"
 
 static void printSDLErrorAndReboot(void) {
   debugPrint("SDL_Error: %s\n", SDL_GetError());
@@ -136,7 +136,7 @@ int main(void) {
   }
 
   // Main render loop
-  Scene *currentScene = new Scene0();
+  Scene *currentScene = new Menu();
 
   while (running) {
 #ifdef _XBOX
@@ -148,19 +148,19 @@ int main(void) {
       current_scene = load_scene;
       switch (load_scene) {
         case 0:
-          currentScene = new Scene0();
+          currentScene = new Menu();
           break;
         case 1:
-          currentScene = new Scene1();
+          currentScene = new SelfTest();
           break;
         case 2:
-          currentScene = new Scene2();
+          currentScene = new Advanced();
           break;
         case 3:
-          currentScene = new Scene3();
+          currentScene = new FirmwareUpdate();
           break;
         case 4:
-          currentScene = new Scene4();
+          currentScene = new Credits();
           break;
         default:
           load_scene = 0;

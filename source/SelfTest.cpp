@@ -10,28 +10,28 @@
 #endif
 
 #include "common.h"
-#include "scene1.h"
+#include "SelfTest.h"
 
 extern SDL_Renderer *gRenderer;
 extern uint8_t load_scene;
 
-Scene1::Scene1() { background_texture = NULL; }
+SelfTest::SelfTest() { background_texture = NULL; }
 
-Scene1::~Scene1(void) {
+SelfTest::~SelfTest(void) {
   if (background_texture) {
     SDL_DestroyTexture(background_texture);
     background_texture = NULL;
   }
 }
 
-void Scene1::event(SDL_Event event) {
+void SelfTest::event(SDL_Event event) {
   switch (event.type) {
     default:
       break;
   }
 }
 
-void Scene1::render(SDL_Renderer *renderer) {
+void SelfTest::render(SDL_Renderer *renderer) {
   if (background_texture) {
     SDL_DestroyTexture(background_texture);
     background_texture = NULL;

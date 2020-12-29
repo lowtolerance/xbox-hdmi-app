@@ -1,4 +1,4 @@
-#include "scene0.h"
+#include "Menu.h"
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -16,9 +16,9 @@ extern TTF_Font *gFontSmall;
 extern uint8_t load_scene;
 extern bool running;
 
-Scene0::Scene0() {
+Menu::Menu() {
   background_texture =
-      loadTexture(gRenderer, "D:\\assets\\images\\screen0_background.png");
+      loadTexture(gRenderer, "D:\\assets\\images\\menu_background.png");
   arrow_texture = loadTexture(gRenderer, "D:\\assets\\images\\arrow.png");
 
   current_item = 0;
@@ -66,13 +66,13 @@ Scene0::Scene0() {
                    &info_line_pos[1].h);
 }
 
-Scene0::~Scene0(void) {
+Menu::~Menu(void) {
   SDL_DestroyTexture(background_texture);
   SDL_DestroyTexture(arrow_texture);
   SDL_DestroyTexture(info_line[0]);
 }
 
-void Scene0::event(SDL_Event event) {
+void Menu::event(SDL_Event event) {
   int8_t button_press = proccess_event(event);
 
   ULONG temp_read = 0;
@@ -105,7 +105,7 @@ void Scene0::event(SDL_Event event) {
   }
 }
 
-bool Scene0::findKernelPatchVersion(uint8_t *version) {
+bool Menu::findKernelPatchVersion(uint8_t *version) {
   char tag[] = "HDMIkv";
 
   for(uint16_t offset = 0; offset < 0x00001000; offset++) {
@@ -121,7 +121,7 @@ bool Scene0::findKernelPatchVersion(uint8_t *version) {
   return false;
 }
 
-void Scene0::render(SDL_Renderer *renderer) {
+void Menu::render(SDL_Renderer *renderer) {
   SDL_RenderCopy(gRenderer, background_texture, NULL, NULL);
   SDL_RenderCopy(gRenderer, arrow_texture, NULL, &arrow_pos[current_item]);
   SDL_RenderCopy(gRenderer, info_line[0], NULL, &info_line_pos[0]);

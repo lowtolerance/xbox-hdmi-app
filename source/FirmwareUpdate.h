@@ -1,5 +1,5 @@
-#ifndef SCENE3_H_
-#define SCENE3_H_
+// #ifndef SCENE3_H_
+// #define SCENE3_H_
 
 #if _XBOX
 #include <SDL.h>
@@ -13,10 +13,10 @@
 #include "console.h"
 #include "scene.h"
 
-class Scene3 : public Scene {
+class FirmwareUpdate : public Scene {
  public:
-  Scene3();
-  virtual ~Scene3();
+  FirmwareUpdate();
+  virtual ~FirmwareUpdate();
   void event(SDL_Event event);
   void render(SDL_Renderer *renderer);
 

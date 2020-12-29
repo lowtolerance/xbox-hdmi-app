@@ -13,25 +13,25 @@
 #include "common.h"
 #include "crc32.h"
 #include "i2c_map.h"
-#include "scene3.h"
+#include "FirmwareUpdate.h"
 
 extern SDL_Window *window;
 extern SDL_Renderer *gRenderer;
 
 extern uint8_t load_scene;
 
-Scene3::Scene3() {
+FirmwareUpdate::FirmwareUpdate() {
   background_texture =
-      loadTexture(gRenderer, "D:\\assets\\images\\screen3_background.png");
+      loadTexture(gRenderer, "D:\\assets\\images\\firmware_update_background.png");
   console = new Console(50, 20);
 }
 
-Scene3::~Scene3(void) {
+FirmwareUpdate::~FirmwareUpdate(void) {
   SDL_DestroyTexture(background_texture);
   delete console;
 }
 
-void Scene3::event(SDL_Event event) {
+void FirmwareUpdate::event(SDL_Event event) {
   int8_t button_press = proccess_event(event);
 
   switch (button_press) {
@@ -46,7 +46,7 @@ void Scene3::event(SDL_Event event) {
   }
 }
 
-void Scene3::render(SDL_Renderer *renderer) {
+void FirmwareUpdate::render(SDL_Renderer *renderer) {
   switch (update_stage) {
     case UpdateState::Start: {
       console->print("Checking for XboxHDMI Board");

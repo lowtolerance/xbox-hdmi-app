@@ -16,7 +16,7 @@
 
 #include "common.h"
 #include "i2c_map.h"
-#include "scene2.h"
+#include "Advanced.h"
 
 extern SDL_Window *window;
 extern SDL_Renderer *gRenderer;
@@ -24,8 +24,8 @@ extern TTF_Font *gFont;
 
 extern uint8_t load_scene;
 
-// Advance Settings
-Scene2::Scene2() {
+// Advanced Settings
+Advanced::Advanced() {
 #ifdef _XBOX
   background_texture =
       loadTexture(gRenderer, "D:\\assets\\backgrounds\\test_image_0.png");
@@ -72,12 +72,12 @@ Scene2::Scene2() {
   readConfig();
 }
 
-Scene2::~Scene2(void) {
+Advanced::~Advanced(void) {
   SDL_DestroyTexture(background_texture);
   SDL_DestroyTexture(menu_backdrop);
 }
 
-void Scene2::readConfig() {
+void Advanced::readConfig() {
 #ifdef _XBOX
   ULONG current_video_widescreen;
   ULONG current_mode_out;
@@ -104,7 +104,7 @@ void Scene2::readConfig() {
 #endif
 }
 
-void Scene2::updateConfig() {
+void Advanced::updateConfig() {
 #ifdef _XBOX
   HalWriteSMBusValue(I2C_HDMI_ADRESS, I2C_EEPROM_WIDESCREEN, 0,
                      (ULONG)video_widescreen);
@@ -119,13 +119,13 @@ void Scene2::updateConfig() {
 #endif
 }
 
-void Scene2::saveConfig() {
+void Advanced::saveConfig() {
 #ifdef _XBOX
   HalWriteSMBusValue(I2C_HDMI_ADRESS, I2C_EEPROM_SAVE, 0, (ULONG)0xFF);
 #endif
 }
 
-void Scene2::event(SDL_Event event) {
+void Advanced::event(SDL_Event event) {
   switch (event.type) {
     case SDL_QUIT:
     case SDL_JOYHATMOTION:
@@ -246,7 +246,7 @@ void Scene2::event(SDL_Event event) {
       if (event.jbutton.button == 2) {
         SDL_DestroyTexture(background_texture);
         background_texture = loadTexture(
-            gRenderer, "D:\\assets\\images\\screen2_background.png");
+            gRenderer, "D:\\assets\\images\\advanced_background.png");
 
         show_help = true;
       }
@@ -256,7 +256,7 @@ void Scene2::event(SDL_Event event) {
   }
 }
 
-void Scene2::recalcSliders(void) {
+void Advanced::recalcSliders(void) {
   // Delete old textures
   if (texture_video_luma) {
     SDL_DestroyTexture(texture_video_luma);
@@ -295,7 +295,7 @@ void Scene2::recalcSliders(void) {
   video_cr_slider_pos.x = 514 + (video_adjust_cr * 8);
 }
 
-void Scene2::render(SDL_Renderer *renderer) {
+void Advanced::render(SDL_Renderer *renderer) {
   if (text_dirty) {
     recalcSliders();
   }
